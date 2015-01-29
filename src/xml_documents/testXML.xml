@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<employmentRecords>
+    <employment>
+        <id>1</id>
+        <name>Microsoft</name>
+        <from>2006-01-01</from>
+        <to>2007-12-30</to>
+    </employment>
+    <employment>
+        <id>2</id>
+        <name>Google</name>
+        <from>2008-01-01</from>
+        <to>2009-12-30</to>
+    </employment>
+    <employment>
+        <id>3</id>
+        <name>Twitter</name>
+        <from>2010-01-01</from>
+        <to>2014-12-30</to>
+    </employment>
+</employmentRecords>

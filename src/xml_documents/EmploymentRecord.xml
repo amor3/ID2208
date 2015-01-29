@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<employmentRecords
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='file:/Users/AMore/NetBeansProjects/WebService_hw_1/src/schema/EmploymentRecord.xsd'>
+    <ssn>890110-0101</ssn>
+    <employment>
+        <orgNo>123456-7800</orgNo>
+        <from>2006-01-01</from>
+        <to>2007-12-30</to>
+    </employment>
+    <employment>
+        <orgNo>123456-7801</orgNo>
+        <from>2008-01-01</from>
+        <to>2009-12-30</to>
+    </employment>
+    <employment>
+        <orgNo>345226-7802</orgNo>
+        <from>2010-01-01</from>
+        <to>2014-12-30</to>
+    </employment>
+</employmentRecords>

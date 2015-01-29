@@ -1,0 +1,27 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="employmentRecords">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="ssn"/>
+                <xs:element name="employment" maxOccurs="unbounded" minOccurs="0">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="orgNoType" name="orgNo" />                           
+                            <xs:element type="xs:date" name="from"/>
+                            <xs:element type="xs:date" name="to"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    
+    
+    
+    <xs:simpleType name="orgNoType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{6}-\d{4}" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
