@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<shortCV
+  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+  xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/ShortCV.xsd'>
+  
+  <name>Johan And</name>
+  <ssn>801223-0432</ssn>
+  <personalLetter>kjlkasd askldjklsa laksdj kkasjdlksa.</personalLetter>
+</shortCV>
