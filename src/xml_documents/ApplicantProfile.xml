@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
 <applicantProfile xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
                   xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/ApplicantProfile.xsd'>
-  <personalInfo>
-    <name>Johan Andersson</name>
-    <ssn>801223-0432</ssn>
-    <personalLetter>sdsd sdsd sdsdsss.</personalLetter>
-  </personalInfo>
-  <studyRecord>
-    <universityName>KTH</universityName>
-    <degree>Bachelor</degree>
-    <year>2017</year>
-    <GPA>100</GPA>
-  </studyRecord>
-  <employmentRecord>
-    <employment>
-      <companyId>1</companyId>
-      <companyName>Microsoft</companyName>
-      <telephoneNumber>08-11122</telephoneNumber>
-      <fromDate>2012-01-22</fromDate>
-      <toDate>2013-02-01</toDate>
-    </employment>
-    <employment>
-      <companyId>1</companyId>
-      <companyName>Microsoft</companyName>
-      <telephoneNumber>08-11122</telephoneNumber>
-      <fromDate>2012-01-22</fromDate>
-      <toDate>2013-02-01</toDate>
-    </employment>
-    <employment>
-      <companyId>1</companyId>
-      <companyName>Microsoft</companyName>
-      <telephoneNumber>08-11122</telephoneNumber>
-      <fromDate>2012-01-22</fromDate>
-      <toDate>2013-02-01</toDate>
-    </employment>
-  </employmentRecord>
+    <personalInfo>
+        <name>Johan Andersson</name>
+        <ssn>801223-0432</ssn>
+        <personalLetter>sdsd sdsd sdsdsss.</personalLetter>
+    </personalInfo>
+    <studyRecord>
+        <universityName>KTH</universityName>
+        <degree>Bachelor</degree>
+        <year>2017</year>
+        <GPA>100</GPA>
+    </studyRecord>
+    <employmentRecord>
+        <employment>
+            <companyId>1</companyId>
+            <companyName>Microsoft</companyName>
+            <telephoneNumber>08-11122</telephoneNumber>
+            <fromDate>2012-01-22</fromDate>
+            <toDate>2013-02-01</toDate>
+        </employment>
+        <employment>
+            <companyId>1</companyId>
+            <companyName>Microsoft</companyName>
+            <telephoneNumber>08-11122</telephoneNumber>
+            <fromDate>2012-01-22</fromDate>
+            <toDate>2013-02-01</toDate>
+        </employment>
+        <employment>
+            <companyId>1</companyId>
+            <companyName>Microsoft</companyName>
+            <telephoneNumber>08-11122</telephoneNumber>
+            <fromDate>2012-01-22</fromDate>
+            <toDate>2013-02-01</toDate>
+        </employment>
+    </employmentRecord>
 </applicantProfile>

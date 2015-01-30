@@ -1,37 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
 <transcript
-  xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-  xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/Transcript.xsd'>
-  <name>Johan Andersson</name>
-  <university>KTH</university>
-  <degree>Master</degree>
-  <graduationYear>2017</graduationYear>
-  <courses>
-    <course>
-      <name>Programming Web Services</name>
-      <ID>ID2208</ID>
-      <credits>7.5</credits>
-      <grade>5</grade>
-    </course>
-    <course>
-      <name>Programming Web Services</name>
-      <ID>ID2208</ID>
-      <credits>7.5</credits>
-      <grade>5</grade>
-    </course>
-    <course>
-      <name>Programming Web Services</name>
-      <ID>ID2208</ID>
-      <credits>7.5</credits>
-      <grade>5</grade>
-    </course>
-  </courses>
+    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+    xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/Transcript.xsd'>
+    <name>Johan Andersson</name>
+    <university>KTH</university>
+    <degree>Master</degree>
+    <graduationYear>2017</graduationYear>
+    <courses>
+        <course>
+            <name>Programming Web Services</name>
+            <ID>ID2208</ID>
+            <credits>7.5</credits>
+            <grade>5</grade>
+        </course>
+        <course>
+            <name>Programming Web Services</name>
+            <ID>ID2208</ID>
+            <credits>7.5</credits>
+            <grade>5</grade>
+        </course>
+        <course>
+            <name>Programming Web Services</name>
+            <ID>ID2208</ID>
+            <credits>7.5</credits>
+            <grade>5</grade>
+        </course>
+    </courses>
 
 </transcript>

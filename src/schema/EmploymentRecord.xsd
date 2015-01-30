@@ -16,9 +16,6 @@
         </xs:complexType>
     </xs:element>
     
-    
-    
-    
     <xs:simpleType name="orgNoType">
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{6}-\d{4}" />
