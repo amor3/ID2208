@@ -2,23 +2,20 @@ package webservice_hw_1;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -26,28 +23,26 @@ import org.xml.sax.SAXException;
  */
 public class DOMProcessing {
 
+    //Get a DocumentBuilder to be able to make the xml document
+    public static DocumentBuilder builder = null;
+
     public static void main(String... args) {
 
         //Get Builder Factory
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 
         // Be sure it validates
-        //builderFactory.setValidating(true);
-
+        builderFactory.setValidating(true);
         // We are going to parse it with a namespace
-        //builderFactory.setNamespaceAware(true);
-
+        builderFactory.setNamespaceAware(true);
         //to ignore white spaces between elements
-        //builderFactory.setIgnoringElementContentWhitespace(true);
+        builderFactory.setIgnoringElementContentWhitespace(true);
         //specifies schema language for validation
-        //builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-
+        builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        
         //specifies the XML schema document to be used for validation. 
-        //builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", "ApplicantProfile.xsd");
-
-        //Get a DocumentBuilder to be able to make the xml document
-        DocumentBuilder builder = null;
-
+        //builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", "http://www.mc-boden.se/id2208/schema/ApplicantProfile.xsd");
+        
         try {
             builder = builderFactory.newDocumentBuilder();
         } catch (Exception ex) {
@@ -57,65 +52,151 @@ public class DOMProcessing {
         // Create a xmlDoc XML
         Document xmlDoc = builder.newDocument();
 
-        // Create root element applicantProfile
+        // Create root element for applicantProfile
         Element rootElement = xmlDoc.createElement("applicantProfile");
         xmlDoc.appendChild(rootElement);
 
- 
-        
-        // Parse ShortCV doc
-        Document shortCVDocument = null;
-        try {
-            shortCVDocument = builder.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//ShortCV.xml"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        // Parse Corresponding xml files
+        Document shortCVDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//ShortCV.xml");
+        Document transcriptDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//Transcript.xml");
+        Document employmentRecDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//EmploymentRecord.xml");
+        Document companyInfoDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//CompanyInfo.xml");
 
-        //Get all elements for shortCV
+        //Get all nodes for corresponding xml files
         NodeList shortCVList = shortCVDocument.getElementsByTagName("shortCV");
-        
-  
- 
+        NodeList transcriptList = transcriptDocument.getElementsByTagName("transcript");
+        NodeList employmentRecList = employmentRecDocument.getElementsByTagName("employmentRecords");
+        NodeList companyInfoList = companyInfoDocument.getElementsByTagName("companyInfo");
 
-/*
-        // Get SSN and save it for later use
-        String name = shortCVElement.getElementsByTagName("name").item(0).getTextContent();
-        String ssn = shortCVElement.getElementsByTagName("ssn").item(0).getTextContent();
-        String personalLetter = shortCVElement.getElementsByTagName("personalLetter").item(0).getTextContent();
-*/
-        
-
+        // Personal Info Creation
         for (int i = 0; i < shortCVList.getLength(); i++) {
             Element personalInfoElement = xmlDoc.createElement("personalInfo");
             rootElement.appendChild(personalInfoElement);
 
             Element shortCVListElement = (Element) shortCVList.item(i);
 
-            
             String name = shortCVListElement.getElementsByTagName("name").item(0).getTextContent();
-            
             Element nameElement = xmlDoc.createElement("name");
             nameElement.appendChild(xmlDoc.createTextNode(name));
             personalInfoElement.appendChild(nameElement);
-            
-      
+
             String ssn = shortCVListElement.getElementsByTagName("ssn").item(0).getTextContent();
-            
             Element ssnElement = xmlDoc.createElement("ssn");
             ssnElement.appendChild(xmlDoc.createTextNode(ssn));
             personalInfoElement.appendChild(ssnElement);
 
-            
-            
             String personalLetter = shortCVListElement.getElementsByTagName("personalLetter").item(0).getTextContent();
-            
             Element personalLetterElement = xmlDoc.createElement("personalLetter");
             personalLetterElement.appendChild(xmlDoc.createTextNode(personalLetter));
             personalInfoElement.appendChild(personalLetterElement);
         }
-    
+        
+        
+        
+        // Study Record Creation
+        for (int i = 0; i < transcriptList.getLength(); i++) {
+            Element studyRecordElement = xmlDoc.createElement("studyRecord");
+            rootElement.appendChild(studyRecordElement);
+
+            Element transcriptElement = (Element) transcriptList.item(i);
+
+            String university = transcriptElement.getElementsByTagName("university").item(0).getTextContent();
+            Element universityElement = xmlDoc.createElement("universityName");
+            universityElement.appendChild(xmlDoc.createTextNode(university));
+            studyRecordElement.appendChild(universityElement);
+
+            String degree = transcriptElement.getElementsByTagName("degree").item(0).getTextContent();
+            Element degreeElement = xmlDoc.createElement("degree");
+            degreeElement.appendChild(xmlDoc.createTextNode(degree));
+            studyRecordElement.appendChild(degreeElement);
+
+            String year = transcriptElement.getElementsByTagName("graduationYear").item(0).getTextContent();
+            Element yearElement = xmlDoc.createElement("year");
+            yearElement.appendChild(xmlDoc.createTextNode(year));
+            studyRecordElement.appendChild(yearElement);
+
+            // Calculate the GPA
+            NodeList courseList = transcriptElement.getElementsByTagName("course");
+            float gpa = 0;
+            for (int j = 0; j < courseList.getLength(); j++) {
+                Element courseElement = (Element) courseList.item(j);
+
+                gpa += Integer.valueOf(courseElement.getElementsByTagName("grade").item(0).getTextContent());
+            }
+
+            float gpaAverage = gpa / courseList.getLength();
+
+            Element gpaElement = xmlDoc.createElement("GPA");
+            gpaElement.appendChild(xmlDoc.createTextNode(String.valueOf(gpaAverage)));
+            studyRecordElement.appendChild(gpaElement);
+        }
 
         
+        
+        
+        
+        
+        // Employment Record Creation
+        Element employmentRecordElement = xmlDoc.createElement("employmentRecord");
+        rootElement.appendChild(employmentRecordElement);
+
+        Element employmentsElement = (Element) employmentRecList.item(0);
+
+        // Get all employment objects in list
+        NodeList employmentList = employmentsElement.getElementsByTagName("employment");
+
+        for (int j = 0; j < employmentList.getLength(); j++) {
+            Element employmentElement = (Element) employmentList.item(j);
+
+            Element employElement = xmlDoc.createElement("employment");
+            employmentRecordElement.appendChild(employElement);
+
+            String orgNo = employmentElement.getElementsByTagName("orgNo").item(0).getTextContent();
+            String from = employmentElement.getElementsByTagName("from").item(0).getTextContent();
+            String to = employmentElement.getElementsByTagName("to").item(0).getTextContent();
+
+
+
+
+            // Search for name in company xml
+            String companyName = "Not found";
+            String telephoneNumber = "Not found";
+
+            Element companysElement = (Element) companyInfoList.item(0);
+            NodeList companyList = companysElement.getElementsByTagName("company");
+
+            for( int l = 0; l < companyList.getLength(); l++){ 
+               Element companyElement = (Element) companyList.item(l);
+
+               if(companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(orgNo)){
+                   companyName = companyElement.getElementsByTagName("name").item(0).getTextContent();
+                   telephoneNumber = companyElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
+               }
+            }
+
+
+
+            Element orgNoElement = xmlDoc.createElement("companyId");
+            orgNoElement.appendChild(xmlDoc.createTextNode(orgNo));
+            employElement.appendChild(orgNoElement);
+
+            Element companyNameElement = xmlDoc.createElement("companyName");
+            companyNameElement.appendChild(xmlDoc.createTextNode(companyName));
+            employElement.appendChild(companyNameElement);
+
+            Element phoneElement = xmlDoc.createElement("telephoneNumber");
+            phoneElement.appendChild(xmlDoc.createTextNode(telephoneNumber));
+            employElement.appendChild(phoneElement);
+
+            Element fromElement = xmlDoc.createElement("fromDate");
+            fromElement.appendChild(xmlDoc.createTextNode(from));
+            employElement.appendChild(fromElement);
+
+            Element toElement = xmlDoc.createElement("toDate");
+            toElement.appendChild(xmlDoc.createTextNode(to));
+            employElement.appendChild(toElement);
+        }
+
         
         
         
@@ -141,42 +222,18 @@ public class DOMProcessing {
         }
     }
 
+    private static Document parseXMLFile(String filePath) {
+        Document doc = null;
+        try {
+            doc = builder.parse(new File(filePath));
+        } catch (SAXException ex) {
+            Logger.getLogger(DOMProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DOMProcessing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return doc;
+    }
+
+
+    
 }
-
-/*
- try {
-
- File fXmlFile = new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//ShortCV.xml");
- DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
- DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
- Document doc = dBuilder.parse(fXmlFile);
-
-            
- doc.getDocumentElement().normalize();
-
- System.out.println("Root element: " + doc.getDocumentElement().getNodeName());
-
- NodeList nList = doc.getElementsByTagName("shortCV");
-
- System.out.println("----------------------------");
-
- for (int temp = 0; temp < nList.getLength(); temp++) {
-
- Node nNode = nList.item(temp);
-
- System.out.println("\nCurrent Element: " + nNode.getNodeName());
-
- if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
- Element eElement = (Element) nNode;
-
- System.out.println(eElement.getElementsByTagName("name").item(0).getTextContent());
- System.out.println(eElement.getElementsByTagName("ssn").item(0).getTextContent());
- System.out.println(eElement.getElementsByTagName("personalLetter").item(0).getTextContent());
- }
- }
- } catch (Exception e) {
- e.printStackTrace();
- }
- }
- */

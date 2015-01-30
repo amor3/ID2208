@@ -8,22 +8,22 @@
     <graduationYear>2017</graduationYear>
     <courses>
         <course>
-            <name>Programming Web Services</name>
+            <name>Programming Web Services1</name>
+            <ID>ID2208</ID>
+            <credits>7.5</credits>
+            <grade>3</grade>
+        </course>
+        <course>
+            <name>Programming Web Services2</name>
             <ID>ID2208</ID>
             <credits>7.5</credits>
             <grade>5</grade>
         </course>
         <course>
-            <name>Programming Web Services</name>
+            <name>Programming Web Services3</name>
             <ID>ID2208</ID>
             <credits>7.5</credits>
-            <grade>5</grade>
-        </course>
-        <course>
-            <name>Programming Web Services</name>
-            <ID>ID2208</ID>
-            <credits>7.5</credits>
-            <grade>5</grade>
+            <grade>2</grade>
         </course>
     </courses>
 
