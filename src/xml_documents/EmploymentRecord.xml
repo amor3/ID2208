@@ -2,7 +2,7 @@
 <employmentRecords xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
                    xmlns='http://www.mc-boden.se/id2208/schema'
                    xsi:schemaLocation='http://www.mc-boden.se/id2208/schema http://www.mc-boden.se/id2208/schema/EmploymentRecord.xsd'>
-    <ssn>890110-0101</ssn>
+    <ssn>000000-0000</ssn>
     <employment>
         <orgNo>123456-7800</orgNo>
         <from>2006-01-01</from>

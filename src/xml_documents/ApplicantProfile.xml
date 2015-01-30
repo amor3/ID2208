@@ -3,8 +3,8 @@
                   xmlns='http://www.mc-boden.se/id2208/schema'
                   xsi:schemaLocation='http://www.mc-boden.se/id2208/schema http://www.mc-boden.se/id2208/schema/ApplicantProfile.xsd'>
     <personalInfo>
-        <name>Johan Andersson</name>
-        <ssn>801223-0432</ssn>
+        <name>Test Testsson</name>
+        <ssn>000000-0000</ssn>
         <personalLetter>sdsd sdsd sdsdsss.</personalLetter>
     </personalInfo>
     <studyRecord>
