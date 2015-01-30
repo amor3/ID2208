@@ -1,5 +1,9 @@
 <?xml version="1.0"?>
-<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema targetNamespace="http://www.mc-boden.se/id2208/schema" 
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://www.mc-boden.se/id2208/schema"
+           elementFormDefault="qualified"> 
+    
     <xs:element name="shortCV">
         <xs:complexType>
             <xs:sequence>

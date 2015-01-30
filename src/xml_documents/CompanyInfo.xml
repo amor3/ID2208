@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<companyInfo
-    xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-    xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/CompanyInfo.xsd'>
+<companyInfo xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
+             xmlns='http://www.mc-boden.se/id2208/schema'
+             xsi:schemaLocation='http://www.mc-boden.se/id2208/schema http://www.mc-boden.se/id2208/schema/CompanyInfo.xsd'>    
     <company>
         <name>Microsoft</name>
         <orgNo>123456-7800</orgNo>

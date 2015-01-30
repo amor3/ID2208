@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <applicantProfile xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' 
-                  xsi:noNamespaceSchemaLocation='file:/Users/johanand/NetBeansProjects/ID2208/src/schema/ApplicantProfile.xsd'>
+                  xmlns='http://www.mc-boden.se/id2208/schema'
+                  xsi:schemaLocation='http://www.mc-boden.se/id2208/schema http://www.mc-boden.se/id2208/schema/ApplicantProfile.xsd'>
     <personalInfo>
         <name>Johan Andersson</name>
         <ssn>801223-0432</ssn>
