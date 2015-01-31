@@ -8,21 +8,22 @@ package webservice_hw_1.data;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
  * @author johanand
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "company", namespace = "http://www.mc-boden.se/id2208/schema")
+@XmlType(name = "companyInfoType", 
+         propOrder = { "name", "orgNo", "phoneNumber" })
 public class Company {
     
-    @XmlElement(name = "name")
+    @XmlElement(required = true)
     private String name;
-    @XmlElement(name = "orgNo")
+    @XmlElement(required = true)
     private String orgNo;
-    @XmlElement(name = "phoneNumber")
+    @XmlElement(required = true)
     private String phoneNumber;
 
     public String getName() {

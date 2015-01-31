@@ -31,10 +31,13 @@ public class JAXBProcessing {
 
     public void importXml() throws JAXBException {
         Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
-        CompanyInfo companyInfo = (CompanyInfo) ((JAXBElement<CompanyInfo>) unmarshaller.unmarshal(new File(filepath))).getValue();
+        System.err.println(
+                unmarshaller.unmarshal(new File(filepath)).getClass().getName());
+        CompanyInfo companyInfo = (CompanyInfo) unmarshaller.unmarshal(new File(filepath));
 //        JAXBElement jaxbe = (JAXBElement) unmarshaller.unmarshal(new File(filepath));
 //        CompanyInfo companyInfo = (CompanyInfo) jaxbe.getValue();
         listOfCompanies = companyInfo;
+        System.err.println(listOfCompanies.getCompany());
     }
 
 //    public CompanyInfo filter() {
@@ -53,13 +56,14 @@ public class JAXBProcessing {
         File file = new File(targetPath);
         Marshaller marshaller = jaxbc.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(new JAXBElement<>(new QName("local"), 
-                            CompanyInfo.class, listOfCompanies), file);
+        marshaller.marshal(new JAXBElement<>(new QName("http://www.mc-boden.se/id2208/schema"), 
+                            CompanyInfo.class, listOfCompanies), System.out);
     }
 
     public static void main(String args[]) {
         try {
-            JAXBProcessing processor = new JAXBProcessing("src/xml_documents/CompanyInfo.xml");
+            JAXBProcessing processor = new JAXBProcessing(
+                    "/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
             processor.importXml();
             processor.exportXml("companyInfoOut.xml");
         } catch (JAXBException ex) {

@@ -5,8 +5,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
-import webservice_hw_1.data.Company;
-import webservice_hw_1.data.CompanyInfo;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,8 +19,8 @@ import webservice_hw_1.data.CompanyInfo;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName qName = 
-            new QName("www.w3.org/2001/XMLSchema", "companyInfo");
+    private final static QName _Company_QNAME = 
+            new QName("http://www.mc-boden.se/id2208/schema", "company");
     
     public ObjectFactory() {
     }
@@ -31,9 +29,13 @@ public class ObjectFactory {
         return new CompanyInfo();
     }
     
-    @XmlElementDecl(namespace = "www.w3.org/2001/XMLSchema", name = "companyInfo")
+    public Company getCompany() {
+        return new Company();
+    }
+    
+    @XmlElementDecl(namespace = "http://www.mc-boden.se/id2208/schema", name = "company")
     public JAXBElement<CompanyInfo> createCompanyInfo(CompanyInfo value) {
-        return new JAXBElement<CompanyInfo>(qName, CompanyInfo.class, null, value);
+        return new JAXBElement<>(_Company_QNAME, CompanyInfo.class, null, value);
     }
     
 }

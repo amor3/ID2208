@@ -11,23 +11,25 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
  * @author amore & johanand
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "companyInfo", namespace = "http://www.mc-boden.se/id2208/schema")
+@XmlType(name = "companyInfo", propOrder = { "company" })
+@XmlRootElement(name="companyInfo") 
 public class CompanyInfo {
     
     @XmlElement(required = true)
-    List<Company> companies;
+    List<Company> company;
 
-    public List<Company> getCompanies() {
-        if (companies == null)
-            companies = new ArrayList<>();
+    public List<Company> getCompany() {
+        if (company == null)
+            company = new ArrayList<>();
         
-        return companies;
+        return company;
     }
     
 }
