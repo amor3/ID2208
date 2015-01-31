@@ -13,9 +13,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
 
 /**
  *
@@ -233,7 +231,4 @@ public class DOMProcessing {
         }
         return doc;
     }
-
-
-    
 }
