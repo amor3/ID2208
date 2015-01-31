@@ -1,7 +1,5 @@
 package webservice_hw_1;
 
-
-
 import java.io.File;
 import java.util.ArrayList;
 import javax.xml.parsers.SAXParser;
@@ -9,9 +7,6 @@ import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
-
-
 
 /**
  *
@@ -78,66 +73,44 @@ public class SAXProcessing {
                         to = false;
                     }
                 }
-                
-                
+
             };
 
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-        saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//EmploymentRecord.xml"), handler);
+            saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//EmploymentRecord.xml"), handler);
 
- 
         // Tanken var att vi skulle göra en av java processerna så att den använder alla teknikerna tillsammans..
-        // Har endast påbörjat detta. kolla gärna på github killens exempel så förstår du :)
-        
+            // Har endast påbörjat detta. kolla gärna på github killens exempel så förstår du :)
         // The dom parser analyzes  the employment office to return all the codes of the 
-        //companies where the guy has worked
-        DOMCompanyParser domCompanyParser = new DOMCompanyParser();
-        ArrayList<String> companyNamesList = domCompanyParser.getCompanyNames(orgNoList);
+            //companies where the guy has worked
+            DOMCompanyParser domCompanyParser = new DOMCompanyParser();
+            ArrayList<String> companyNamesList = domCompanyParser.getCompanyNames(orgNoList);
+
+            System.out.println("companyNamesList: " + companyNamesList);
+
+            /*
+             JAXBProcessing jaxbProcessing = new JAXBProcessing("src/xml/companyInfo.xml", companyNamesList);
         
-        System.out.println("companyNamesList: " + companyNamesList);
+             jaxbProcessing.importXml();
+             ListCompaniesType lc = jaxbProcessing.filter();
+             jaxbProcessing.exportXml(lc, "src/xml/companyInfoOutput.xml");
+             */
+            /*
+             //xlst reads the transcript to calculate the avg of the guy's grades
+             Source xmlInput = new StreamSource(new File("src/xml/transcript.xml"));
+             Source xsl = new StreamSource(new File("src/xml/transcriptTransformer.xsl"));
+             Result xmlOutput = new StreamResult(new File("src/xml/transcriptOutput.xml"));
 
-
-        
-        /*
-        JAXBProcessing jaxbProcessing = new JAXBProcessing("src/xml/companyInfo.xml", companyNamesList);
-        
-        jaxbProcessing.importXml();
-        ListCompaniesType lc = jaxbProcessing.filter();
-        jaxbProcessing.exportXml(lc, "src/xml/companyInfoOutput.xml");
-*/
-        
-        
-        
-        /*
-        //xlst reads the transcript to calculate the avg of the guy's grades
-        Source xmlInput = new StreamSource(new File("src/xml/transcript.xml"));
-        Source xsl = new StreamSource(new File("src/xml/transcriptTransformer.xsl"));
-        Result xmlOutput = new StreamResult(new File("src/xml/transcriptOutput.xml"));
-
-        Transformer transformer = TransformerFactory.newInstance().newTransformer(xsl);
-        transformer.transform(xmlInput, xmlOutput);
+             Transformer transformer = TransformerFactory.newInstance().newTransformer(xsl);
+             transformer.transform(xmlInput, xmlOutput);
 
 
 
 
-        ////xlst to merge everything
-        xsl = new StreamSource(new File("src/xml/XSLTmerger.xsl"));
-        transformer = TransformerFactory.newInstance().newTransformer(xsl);
-        xmlOutput = new StreamResult(new File("src/xml/finalOutput.xml"));
-        transformer.transform(xmlInput, xmlOutput);
+             ////xlst to merge everything
+             xsl = new StreamSource(new File("src/xml/XSLTmerger.xsl"));
+             transformer = TransformerFactory.newInstance().newTransformer(xsl);
+             xmlOutput = new StreamResult(new File("src/xml/finalOutput.xml"));
+             transformer.transform(xmlInput, xmlOutput);
 
 
 
@@ -149,8 +122,8 @@ public class SAXProcessing {
             
             
             
-            saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//Transcript.xml"), handler);
-*/
+             saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//Transcript.xml"), handler);
+             */
         } catch (Exception e) {
             e.printStackTrace();
         }

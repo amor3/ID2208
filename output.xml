@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><applicantProfile>
+  <personalInfo>
+    <name>Johan Andre</name>
+    <ssn>000000-0000</ssn>
+    <personalLetter>This is my personal letter, any questions?</personalLetter>
+  </personalInfo>
+  <studyRecord>
+    <universityName>KTH</universityName>
+    <degree>Master</degree>
+    <year>2017</year>
+    <GPA>3.3333333</GPA>
+  </studyRecord>
+  <employmentRecord>
+    <employment>
+      <companyId>123456-7800</companyId>
+      <companyName>Microsoft</companyName>
+      <telephoneNumber>08-11122</telephoneNumber>
+      <fromDate>2006-01-01</fromDate>
+      <toDate>2007-12-30</toDate>
+    </employment>
+    <employment>
+      <companyId>123456-7801</companyId>
+      <companyName>Google</companyName>
+      <telephoneNumber>08-22233</telephoneNumber>
+      <fromDate>2008-01-01</fromDate>
+      <toDate>2009-12-30</toDate>
+    </employment>
+    <employment>
+      <companyId>123456-7802</companyId>
+      <companyName>Twitter</companyName>
+      <telephoneNumber>08-33344</telephoneNumber>
+      <fromDate>2010-01-01</fromDate>
+      <toDate>2014-12-30</toDate>
+    </employment>
+  </employmentRecord>
+</applicantProfile>

@@ -5,9 +5,13 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import webservice_hw_1.data.CompanyInfo;
 
 /**
  *
@@ -15,62 +19,52 @@ import javax.xml.namespace.QName;
  */
 public class JAXBProcessing {
 
-    /* DENNA KAN DU FORTSÄTTA MED :P
+    // DENNA KAN DU FORTSÄTTA MED :P
     private String filepath;
-    private ArrayList<String> companycodes = new ArrayList<>();
-    private ListCompaniesType listofcompanies;
-    JAXBContext jc;
+    private CompanyInfo listOfCompanies;
+    JAXBContext jaxbc;
 
-    public JAXBProcessing(String filepath, ArrayList<String> companies) throws JAXBException {
+    public JAXBProcessing(String filepath) throws JAXBException {
         this.filepath = filepath;
-        this.companycodes = companies;
-        jc = JAXBContext.newInstance("company.db");
+        jaxbc = JAXBContext.newInstance("webservice_hw_1.data");
     }
 
     public void importXml() throws JAXBException {
-
-        Unmarshaller u = jc.createUnmarshaller();
-        JAXBElement el = (JAXBElement) u.unmarshal(new File(filepath));
-        ListCompaniesType lc = (ListCompaniesType) el.getValue();
-        System.out.println("-----" + lc.getCompanyInfo().get(0).getCompanyCode());
-        listofcompanies = lc;
+        Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
+        CompanyInfo companyInfo = (CompanyInfo) ((JAXBElement<CompanyInfo>) unmarshaller.unmarshal(new File(filepath))).getValue();
+//        JAXBElement jaxbe = (JAXBElement) unmarshaller.unmarshal(new File(filepath));
+//        CompanyInfo companyInfo = (CompanyInfo) jaxbe.getValue();
+        listOfCompanies = companyInfo;
     }
 
-    public ListCompaniesType filter() {
-        ListCompaniesType newlc = new ListCompaniesType();
-        for (String companycode : companycodes) {
-            for (CompanyInfoType c : listofcompanies.getCompanyInfo()) {
-                if (c.getCompanyCode().equalsIgnoreCase(companycode)) {
-                    newlc.getCompanyInfo().add(c);
-                }
-            }
-        }
-        return newlc;
-    }
+//    public CompanyInfo filter() {
+//        CompanyInfo companyInfo = new CompanyInfo();
+//        for (String companycode : companycodes) {
+//            for (CompanyInfoType c : listOfCompanies.getCompanyInfo()) {
+//                if (c.getCompanyCode().equalsIgnoreCase(companycode)) {
+//                    newlc.getCompanyInfo().add(c);
+//                }
+//            }
+//        }
+//        return newlc;
+//    }
 
-    public void exportXml(ListCompaniesType lc, String targetPath) throws JAXBException {
-
+    public void exportXml(String targetPath) throws JAXBException {
         File file = new File(targetPath);
-        Marshaller marshaller = jc.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
-        marshaller.marshal(new JAXBElement<ListCompaniesType>(new QName("local"), ListCompaniesType.class, lc), file);
-
+        Marshaller marshaller = jaxbc.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        marshaller.marshal(new JAXBElement<>(new QName("local"), 
+                            CompanyInfo.class, listOfCompanies), file);
     }
 
     public static void main(String args[]) {
-        ArrayList<String> codes = new ArrayList<>();
-        codes.add("54321");
-
         try {
-            JAXBCompanyInfoExtractor ie = new JAXBCompanyInfoExtractor("src/xml/companyInfo.xml", codes);
-            ie.importXml();
-            ListCompaniesType lc = ie.filter();
-            ie.exportXml(lc, "src/xml/filteredCompanies.xml");
-        } catch (JAXBException e) {
-            e.printStackTrace();
+            JAXBProcessing processor = new JAXBProcessing("src/xml_documents/CompanyInfo.xml");
+            processor.importXml();
+            processor.exportXml("companyInfoOut.xml");
+        } catch (JAXBException ex) {
+            Logger.getLogger(JAXBProcessing.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
     
-    */
 }
