@@ -2,11 +2,13 @@ package webservice_hw_1;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+import webservice_hw_1.data.Company;
 
 /**
  *
@@ -14,9 +16,13 @@ import org.xml.sax.helpers.DefaultHandler;
  */
 public class SAXProcessing {
 
-    public static ArrayList<String> orgNoList = new ArrayList<>();
+    private List<String> orgNoList;
 
-    public static void main(String argv[]) {
+    public SAXProcessing() {
+        orgNoList = new ArrayList<>();
+    }
+
+    public List<Company> getCompanyInfo(String ssn) {
 
         try {
 
@@ -76,24 +82,20 @@ public class SAXProcessing {
 
             };
 
-            saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//EmploymentRecord.xml"), handler);
+            saxParser.parse(new File("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/EmploymentRecord.xml"), handler);
 
         // Tanken var att vi skulle göra en av java processerna så att den använder alla teknikerna tillsammans..
             // Har endast påbörjat detta. kolla gärna på github killens exempel så förstår du :)
         // The dom parser analyzes  the employment office to return all the codes of the 
             //companies where the guy has worked
             DOMCompanyParser domCompanyParser = new DOMCompanyParser();
-            ArrayList<String> companyNamesList = domCompanyParser.getCompanyNames(orgNoList);
 
-            System.out.println("companyNamesList: " + companyNamesList);
-
-            /*
-             JAXBProcessing jaxbProcessing = new JAXBProcessing("src/xml/companyInfo.xml", companyNamesList);
+            JAXBProcessing jaxbProcessing = new JAXBProcessing("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/companyInfo.xml");
         
-             jaxbProcessing.importXml();
-             ListCompaniesType lc = jaxbProcessing.filter();
-             jaxbProcessing.exportXml(lc, "src/xml/companyInfoOutput.xml");
-             */
+            List<Company> companies = jaxbProcessing.filter(orgNoList);
+//             ListCompaniesType lc = jaxbProcessing.filter();
+//             jaxbProcessing.exportXml(lc, "src/xml/companyInfoOutput.xml");
+
             /*
              //xlst reads the transcript to calculate the avg of the guy's grades
              Source xmlInput = new StreamSource(new File("src/xml/transcript.xml"));
@@ -124,10 +126,12 @@ public class SAXProcessing {
             
              saxParser.parse(new File("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//Transcript.xml"), handler);
              */
+            
+            return companies;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
 }

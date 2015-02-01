@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.namespace.QName;
+import webservice_hw_1.data.Company;
 import webservice_hw_1.data.CompanyInfo;
 
 /**
@@ -27,30 +28,28 @@ public class JAXBProcessing {
     public JAXBProcessing(String filepath) throws JAXBException {
         this.filepath = filepath;
         jaxbc = JAXBContext.newInstance("webservice_hw_1.data");
+        importXml();
     }
 
-    public void importXml() throws JAXBException {
+    private void importXml() throws JAXBException {
         Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
         System.err.println(
                 unmarshaller.unmarshal(new File(filepath)).getClass().getName());
         CompanyInfo companyInfo = (CompanyInfo) unmarshaller.unmarshal(new File(filepath));
-//        JAXBElement jaxbe = (JAXBElement) unmarshaller.unmarshal(new File(filepath));
-//        CompanyInfo companyInfo = (CompanyInfo) jaxbe.getValue();
         listOfCompanies = companyInfo;
-        System.err.println(listOfCompanies.getCompany());
     }
 
-//    public CompanyInfo filter() {
-//        CompanyInfo companyInfo = new CompanyInfo();
-//        for (String companycode : companycodes) {
-//            for (CompanyInfoType c : listOfCompanies.getCompanyInfo()) {
-//                if (c.getCompanyCode().equalsIgnoreCase(companycode)) {
-//                    newlc.getCompanyInfo().add(c);
-//                }
-//            }
-//        }
-//        return newlc;
-//    }
+    public List<Company> filter(List<String> orgNumbers) {
+        List<Company> companies = new ArrayList<>();
+        for (Company company : listOfCompanies.getCompany()) {
+            for (String orgNo : orgNumbers) {
+                if (company.getOrgNo().equals(orgNo))
+                    companies.add(company);
+            }
+        }
+        
+        return companies;
+    }
 
     public void exportXml(String targetPath) throws JAXBException {
         File file = new File(targetPath);

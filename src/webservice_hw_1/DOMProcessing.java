@@ -2,8 +2,10 @@ package webservice_hw_1;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Transformer;
@@ -14,6 +16,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import webservice_hw_1.data.Company;
 
 /**
  *
@@ -24,7 +27,10 @@ public class DOMProcessing {
     //Get a DocumentBuilder to be able to make the xml document
     public static DocumentBuilder builder = null;
 
-    public static void main(String... args) {
+    public DOMProcessing() {
+    }
+
+    public void process() throws JAXBException {
 
         //Get Builder Factory
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -55,14 +61,10 @@ public class DOMProcessing {
         xmlDoc.appendChild(rootElement);
 
         // Parse Corresponding xml files
-//        Document shortCVDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//ShortCV.xml");
-        Document shortCVDocument = parseXMLFile("src/xml_documents/ShortCV.xml");
-//        Document transcriptDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//Transcript.xml");
-        Document transcriptDocument = parseXMLFile("src/xml_documents/Transcript.xml");
-//        Document employmentRecDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//EmploymentRecord.xml");
-        Document employmentRecDocument = parseXMLFile("src/xml_documents/EmploymentRecord.xml");
-//        Document companyInfoDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//CompanyInfo.xml");
-        Document companyInfoDocument = parseXMLFile("src/xml_documents/CompanyInfo.xml");
+        Document shortCVDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/ShortCV.xml");
+        Document transcriptDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/Transcript.xml");
+        Document employmentRecDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents//EmploymentRecord.xml");
+        Document companyInfoDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
 
         //Get all nodes for corresponding xml files
         NodeList shortCVList = shortCVDocument.getElementsByTagName("shortCV");
@@ -70,6 +72,8 @@ public class DOMProcessing {
         NodeList employmentRecList = employmentRecDocument.getElementsByTagName("employmentRecords");
         NodeList companyInfoList = companyInfoDocument.getElementsByTagName("companyInfo");
 
+        String ssn = "not set";
+        
         // Personal Info Creation
         for (int i = 0; i < shortCVList.getLength(); i++) {
             Element personalInfoElement = xmlDoc.createElement("personalInfo");
@@ -82,7 +86,7 @@ public class DOMProcessing {
             nameElement.appendChild(xmlDoc.createTextNode(name));
             personalInfoElement.appendChild(nameElement);
 
-            String ssn = shortCVListElement.getElementsByTagName("ssn").item(0).getTextContent();
+            ssn = shortCVListElement.getElementsByTagName("ssn").item(0).getTextContent();
             Element ssnElement = xmlDoc.createElement("ssn");
             ssnElement.appendChild(xmlDoc.createTextNode(ssn));
             personalInfoElement.appendChild(ssnElement);
@@ -133,11 +137,6 @@ public class DOMProcessing {
             studyRecordElement.appendChild(gpaElement);
         }
 
-        
-        
-        
-        
-        
         // Employment Record Creation
         Element employmentRecordElement = xmlDoc.createElement("employmentRecord");
         rootElement.appendChild(employmentRecordElement);
@@ -147,47 +146,49 @@ public class DOMProcessing {
         // Get all employment objects in list
         NodeList employmentList = employmentsElement.getElementsByTagName("employment");
 
+        SAXProcessing saxProcessor = new SAXProcessing();
+        List<Company> companies = saxProcessor.getCompanyInfo(ssn);
+        
+        
         for (int j = 0; j < employmentList.getLength(); j++) {
             Element employmentElement = (Element) employmentList.item(j);
-
+            
             Element employElement = xmlDoc.createElement("employment");
             employmentRecordElement.appendChild(employElement);
-
+            
             String orgNo = employmentElement.getElementsByTagName("orgNo").item(0).getTextContent();
             String from = employmentElement.getElementsByTagName("from").item(0).getTextContent();
             String to = employmentElement.getElementsByTagName("to").item(0).getTextContent();
 
+            Company company = getCompanyByOrgNo(orgNo, companies);
+            
 
-
-
-            // Search for name in company xml
-            String companyName = "Not found";
-            String telephoneNumber = "Not found";
-
-            Element companysElement = (Element) companyInfoList.item(0);
-            NodeList companyList = companysElement.getElementsByTagName("company");
-
-            for( int l = 0; l < companyList.getLength(); l++){ 
-               Element companyElement = (Element) companyList.item(l);
-
-               if(companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(orgNo)){
-                   companyName = companyElement.getElementsByTagName("name").item(0).getTextContent();
-                   telephoneNumber = companyElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
-               }
-            }
-
-
+//            // Search for name in company xml
+//            String companyName = "Not found";
+//            String telephoneNumber = "Not found";
+//
+//            Element companysElement = (Element) companyInfoList.item(0);
+//            NodeList companyList = companysElement.getElementsByTagName("company");
+//
+//            for( int l = 0; l < companyList.getLength(); l++){ 
+//               Element companyElement = (Element) companyList.item(l);
+//
+//               if(companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(orgNo)){
+//                   companyName = companyElement.getElementsByTagName("name").item(0).getTextContent();
+//                   telephoneNumber = companyElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
+//               }
+//            }
 
             Element orgNoElement = xmlDoc.createElement("companyId");
             orgNoElement.appendChild(xmlDoc.createTextNode(orgNo));
             employElement.appendChild(orgNoElement);
 
             Element companyNameElement = xmlDoc.createElement("companyName");
-            companyNameElement.appendChild(xmlDoc.createTextNode(companyName));
+            companyNameElement.appendChild(xmlDoc.createTextNode(company.getName()));
             employElement.appendChild(companyNameElement);
 
             Element phoneElement = xmlDoc.createElement("telephoneNumber");
-            phoneElement.appendChild(xmlDoc.createTextNode(telephoneNumber));
+            phoneElement.appendChild(xmlDoc.createTextNode(company.getPhoneNumber()));
             employElement.appendChild(phoneElement);
 
             Element fromElement = xmlDoc.createElement("fromDate");
@@ -209,6 +210,7 @@ public class DOMProcessing {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         //get transformer to fill XML xmlDoc file
         Transformer transformer = null;
+        System.err.println("1");
         try {
             transformer = transformerFactory.newTransformer();
 
@@ -219,6 +221,7 @@ public class DOMProcessing {
             StreamResult result = new StreamResult(new File("output.xml"));
             //fill the XML xmlDoc file using the stream with the DOM tree
             transformer.transform(source, result);
+            System.err.println("2");
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -234,4 +237,14 @@ public class DOMProcessing {
         }
         return doc;
     }
+    
+    private Company getCompanyByOrgNo(String orgNo, List<Company> companies) {
+        for (Company c : companies) {
+            if (c.getOrgNo().equals(orgNo))
+                return c;
+        }
+        
+        return null;
+    }
+    
 }

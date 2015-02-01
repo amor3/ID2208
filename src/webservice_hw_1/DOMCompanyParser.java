@@ -3,6 +3,7 @@ package webservice_hw_1;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,11 +20,11 @@ import org.xml.sax.SAXException;
 public class DOMCompanyParser {
 
     public DocumentBuilder builder = null;
-    public ArrayList<String> companyNameList = new ArrayList<>();
+    public List<String> companyNameList = new ArrayList<>();
     
     
     
-    public ArrayList<String> getCompanyNames(ArrayList<String> searchedOrgNo) {
+    public List<String> getCompanyNames(List<String> searchedOrgNo) {
 
         //Get Builder Factory
         DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
@@ -47,7 +48,8 @@ public class DOMCompanyParser {
         Document xmlDoc = builder.newDocument();
 
         // Parse Corresponding xml files
-        Document companyInfoDocument = parseXMLFile("//Users//AMore//NetBeansProjects//WebService_hw_1//src//xml_documents//CompanyInfo.xml");
+        Document companyInfoDocument = parseXMLFile(
+            "/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
 
         //Get all nodes for corresponding xml files
         NodeList companyInfoList = companyInfoDocument.getElementsByTagName("companyInfo");
@@ -63,7 +65,7 @@ public class DOMCompanyParser {
 
             for (int j = 0; j < searchedOrgNo.size(); j++) {
                 if (companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(searchedOrgNo.get(j))) {
-                    companyNameList.add( companyElement.getElementsByTagName("name").item(0).getTextContent() );
+                    companyNameList.add(companyElement.getElementsByTagName("orgNo").item(0).getTextContent() );
                 }
             }
 

@@ -5,6 +5,8 @@
  */
 package webservice_hw_1;
 
+import javax.xml.bind.JAXBException;
+
 /**
  *
  * @author AMore
@@ -14,8 +16,9 @@ public class WebService_hw_1 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public static void main(String[] args) throws JAXBException {
+        DOMProcessing domProcessor = new DOMProcessing();
+        domProcessor.process();
     }
     
 }
