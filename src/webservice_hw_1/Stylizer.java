@@ -29,10 +29,9 @@ public class Stylizer {
     }
     
     public static void style(String outputPath) {
-        DocumentBuilderFactory documentBuilderFactory = 
-                DocumentBuilderFactory.newInstance();
-        
         try {
+            DocumentBuilderFactory documentBuilderFactory = 
+                DocumentBuilderFactory.newInstance();
             File xmlFile = new File("output.xml");
             File styleFile = new File("/Users/johanand/NetBeansProjects/ID2208/src/" + 
                     "style/ApplicantProfile.xsl");
@@ -50,6 +49,7 @@ public class Stylizer {
             transformer.transform(domSource, streamResult);
         } catch (ParserConfigurationException | SAXException | IOException | 
                 TransformerException e) {
+            System.err.println("Style error");
             System.err.println(e.getMessage());
         }
     }

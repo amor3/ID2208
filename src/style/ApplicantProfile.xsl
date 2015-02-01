@@ -54,7 +54,7 @@
       <br />
       <div>
         <h3>Employment Record</h3>
-        <xsl:for-each select = "//employmentRecord/employmentRecord" />
+        <xsl:for-each select="//employmentRecord/employment">
         <table>
           <tr>
             <td>Company Name</td>
@@ -65,14 +65,16 @@
             <td><xsl:value-of select="fromDate" /></td>
           </tr>
           <tr>
-            <td></td>
+            <td>To</td>
             <td><xsl:value-of select="toDate" /></td>
           </tr>
           <tr>
-            <td>Telephone numner</td>
+            <td>Telephone number</td>
             <td><xsl:value-of select="telephoneNumber" /></td>
           </tr>
         </table>
+        <br />
+        </xsl:for-each>
       </div>
     </div>
   </body>
