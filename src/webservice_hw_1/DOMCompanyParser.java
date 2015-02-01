@@ -22,8 +22,6 @@ public class DOMCompanyParser {
     public DocumentBuilder builder = null;
     public List<String> companyNameList = new ArrayList<>();
     
-    
-    
     public List<String> getCompanyNames(List<String> searchedOrgNo) {
 
         //Get Builder Factory
@@ -36,7 +34,8 @@ public class DOMCompanyParser {
         //to ignore white spaces between elements
         builderFactory.setIgnoringElementContentWhitespace(true);
         //specifies schema language for validation
-        builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
+        builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/" + 
+                "schemaLanguage", "http://www.w3.org/2001/XMLSchema");
 
         try {
             builder = builderFactory.newDocumentBuilder();
@@ -64,8 +63,10 @@ public class DOMCompanyParser {
             Element companyElement = (Element) companyList.item(i);
 
             for (int j = 0; j < searchedOrgNo.size(); j++) {
-                if (companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(searchedOrgNo.get(j))) {
-                    companyNameList.add(companyElement.getElementsByTagName("orgNo").item(0).getTextContent() );
+                if (companyElement.getElementsByTagName("orgNo").item(0).getTextContent()
+                            .equals(searchedOrgNo.get(j))) {
+                    companyNameList.add(companyElement.getElementsByTagName("orgNo")
+                            .item(0).getTextContent() );
                 }
             }
 
@@ -79,9 +80,7 @@ public class DOMCompanyParser {
         Document doc = null;
         try {
             doc = builder.parse(new File(filePath));
-        } catch (SAXException ex) {
-            Logger.getLogger(DOMProcessing.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SAXException | IOException ex) {
             Logger.getLogger(DOMProcessing.class.getName()).log(Level.SEVERE, null, ex);
         }
         return doc;

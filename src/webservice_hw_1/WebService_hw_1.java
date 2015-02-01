@@ -15,6 +15,7 @@ public class WebService_hw_1 {
 
     /**
      * @param args the command line arguments
+     * @throws javax.xml.bind.JAXBException
      */
     public static void main(String[] args) throws JAXBException {
         DOMProcessing domProcessor = new DOMProcessing();

@@ -12,7 +12,6 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -99,7 +98,6 @@ public class DOMProcessing {
         }
         
         
-        
         // Study Record Creation
         for (int i = 0; i < transcriptList.getLength(); i++) {
             Element studyRecordElement = xmlDoc.createElement("studyRecord");
@@ -147,6 +145,7 @@ public class DOMProcessing {
         // Get all employment objects in list
         NodeList employmentList = employmentsElement.getElementsByTagName("employment");
 
+        // USes SAX and JAXB here
         SAXProcessing saxProcessor = new SAXProcessing();
         List<Company> companies = saxProcessor.getCompanyInfo(ssn);
         
@@ -163,23 +162,6 @@ public class DOMProcessing {
 
             Company company = getCompanyByOrgNo(orgNo, companies);
             
-
-//            // Search for name in company xml
-//            String companyName = "Not found";
-//            String telephoneNumber = "Not found";
-//
-//            Element companysElement = (Element) companyInfoList.item(0);
-//            NodeList companyList = companysElement.getElementsByTagName("company");
-//
-//            for( int l = 0; l < companyList.getLength(); l++){ 
-//               Element companyElement = (Element) companyList.item(l);
-//
-//               if(companyElement.getElementsByTagName("orgNo").item(0).getTextContent().equals(orgNo)){
-//                   companyName = companyElement.getElementsByTagName("name").item(0).getTextContent();
-//                   telephoneNumber = companyElement.getElementsByTagName("phoneNumber").item(0).getTextContent();
-//               }
-//            }
-
             Element orgNoElement = xmlDoc.createElement("companyId");
             orgNoElement.appendChild(xmlDoc.createTextNode(orgNo));
             employElement.appendChild(orgNoElement);
@@ -202,10 +184,6 @@ public class DOMProcessing {
         }
 
         
-        
-        
-        
-        
         // write the content into xml file
         //get Transformer Factory
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -213,12 +191,11 @@ public class DOMProcessing {
         Transformer transformer = null;
        
         try {
+            
             transformer = transformerFactory.newTransformer();
-
             //generate DOM tree source from the xmlDoc document
             DOMSource source = new DOMSource(xmlDoc);
             //get stream to fill the xmlDoc file
-//            StreamResult result = new StreamResult(new File("//Users//AMore//Desktop//output.xml"));
             StreamResult result = new StreamResult(new File("output.xml"));
             //fill the XML xmlDoc file using the stream with the DOM tree
             transformer.transform(source, result);

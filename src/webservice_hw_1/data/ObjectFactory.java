@@ -1,20 +1,13 @@
 package webservice_hw_1.data;
 
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
 import javax.xml.namespace.QName;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- *
- * @author johanand
+ * 
+ * @author amore & johand4
  */
 @XmlRegistry
 public class ObjectFactory {
