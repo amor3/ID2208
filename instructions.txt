@@ -1,0 +1,9 @@
+From the "src/" folder, run
+$ javac webservice_hw_1/WebService_hw_1.java
+$ javac webservice_hw_1/data/*.java
+$ javac webservice_hw_1/WebService_hw_1.java
+
+This produces output in "src/.." :
+output.xml           - applicant profile xml file
+styled_output.html   - html file from output.xml and xslt
+
