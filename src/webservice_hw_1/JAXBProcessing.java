@@ -33,8 +33,6 @@ public class JAXBProcessing {
 
     private void importXml() throws JAXBException {
         Unmarshaller unmarshaller = jaxbc.createUnmarshaller();
-        System.err.println(
-                unmarshaller.unmarshal(new File(filepath)).getClass().getName());
         CompanyInfo companyInfo = (CompanyInfo) unmarshaller.unmarshal(new File(filepath));
         listOfCompanies = companyInfo;
     }
@@ -51,23 +49,23 @@ public class JAXBProcessing {
         return companies;
     }
 
-    public void exportXml(String targetPath) throws JAXBException {
-        File file = new File(targetPath);
-        Marshaller marshaller = jaxbc.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(new JAXBElement<>(new QName("http://www.mc-boden.se/id2208/schema"), 
-                            CompanyInfo.class, listOfCompanies), System.out);
-    }
-
-    public static void main(String args[]) {
-        try {
-            JAXBProcessing processor = new JAXBProcessing(
-                    "/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
-            processor.importXml();
-            processor.exportXml("companyInfoOut.xml");
-        } catch (JAXBException ex) {
-            Logger.getLogger(JAXBProcessing.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    
+//    public void exportXml(String targetPath) throws JAXBException {
+//        File file = new File(targetPath);
+//        Marshaller marshaller = jaxbc.createMarshaller();
+//        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+//        marshaller.marshal(new JAXBElement<>(new QName("http://www.mc-boden.se/id2208/schema"), 
+//                            CompanyInfo.class, listOfCompanies), System.out);
+//    }
+//
+//    public static void main(String args[]) {
+//        try {
+//            JAXBProcessing processor = new JAXBProcessing(
+//                    "/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
+//            processor.importXml();
+//            processor.exportXml("companyInfoOut.xml");
+//        } catch (JAXBException ex) {
+//            Logger.getLogger(JAXBProcessing.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//    
 }

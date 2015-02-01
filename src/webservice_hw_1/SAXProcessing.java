@@ -61,21 +61,21 @@ public class SAXProcessing {
                 public void characters(char ch[], int start, int length) throws SAXException {
 
                     if (ssn) {
-                        System.out.println("ssn : " + new String(ch, start, length));
+//                        System.out.println("ssn : " + new String(ch, start, length));
                         ssn = false;
                     }
                     if (orgNo) {
                         String orgNr = new String(ch, start, length);
                         orgNoList.add(orgNr);
-                        System.out.println("orgNo : " + orgNo);
+//                        System.out.println("orgNo : " + orgNo);
                         orgNo = false;
                     }
                     if (from) {
-                        System.out.println("from : " + new String(ch, start, length));
+//                        System.out.println("from : " + new String(ch, start, length));
                         from = false;
                     }
                     if (to) {
-                        System.out.println("to : " + new String(ch, start, length));
+//                        System.out.println("to : " + new String(ch, start, length));
                         to = false;
                     }
                 }

@@ -12,6 +12,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -210,7 +211,7 @@ public class DOMProcessing {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         //get transformer to fill XML xmlDoc file
         Transformer transformer = null;
-        System.err.println("1");
+       
         try {
             transformer = transformerFactory.newTransformer();
 
@@ -221,8 +222,7 @@ public class DOMProcessing {
             StreamResult result = new StreamResult(new File("output.xml"));
             //fill the XML xmlDoc file using the stream with the DOM tree
             transformer.transform(source, result);
-            System.err.println("2");
-
+            
         } catch (Exception ex) {
             ex.printStackTrace();
         }
