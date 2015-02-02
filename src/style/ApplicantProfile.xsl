@@ -2,10 +2,6 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
   <xsl:output method="html" standalone="yes"/>
-
-  <!-- TODO customize transformation rules 
-       syntax recommendation http://www.w3.org/TR/xslt 
-  -->
 <xsl:template match="/">
   <html>
   <body>
@@ -30,6 +26,8 @@
         </table>
       </div>
       <br />
+      
+      
       <div>
         <h3>Studies</h3>
         <table>
@@ -46,8 +44,18 @@
             <td><xsl:value-of select="//studyRecord/year" /></td>
           </tr>
           <tr>
+              
             <td>Grade point average</td>
-            <td><xsl:value-of select="//studyRecord/GPA" /></td>
+            <td>
+                <!-- Smart implementation for calculating the GPA, lol -->
+                <xsl:variable name="summation" select="sum(//tempCourses/tempCourse/@grade)" />
+                <xsl:variable name="numberOfCourses" select="count(//tempCourses/tempCourse)" />
+                
+                <xsl:variable name="gpaCalc" select="$summation div $numberOfCourses " />
+
+                <xsl:value-of select="$gpaCalc" />
+                
+            </td>
           </tr>
         </table>
       </div>
@@ -76,6 +84,11 @@
         <br />
         </xsl:for-each>
       </div>
+ 
+
+
+
+      
     </div>
   </body>
   </html>

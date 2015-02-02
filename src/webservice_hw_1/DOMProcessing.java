@@ -43,10 +43,9 @@ public class DOMProcessing {
         builderFactory.setIgnoringElementContentWhitespace(true);
         //specifies schema language for validation
         builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaLanguage", "http://www.w3.org/2001/XMLSchema");
-        
+
         //specifies the XML schema document to be used for validation. 
         //builderFactory.setAttribute("http://java.sun.com/xml/jaxp/properties/schemaSource", "http://www.mc-boden.se/id2208/schema/ApplicantProfile.xsd");
-        
         try {
             builder = builderFactory.newDocumentBuilder();
         } catch (Exception ex) {
@@ -61,10 +60,10 @@ public class DOMProcessing {
         xmlDoc.appendChild(rootElement);
 
         // Parse Corresponding xml files
-        Document shortCVDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/ShortCV.xml");
-        Document transcriptDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/Transcript.xml");
-        Document employmentRecDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents//EmploymentRecord.xml");
-        Document companyInfoDocument = parseXMLFile("/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
+        Document shortCVDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/ShortCV.xml");
+        Document transcriptDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/Transcript.xml");
+        Document employmentRecDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents//EmploymentRecord.xml");
+        Document companyInfoDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/CompanyInfo.xml");
 
         //Get all nodes for corresponding xml files
         NodeList shortCVList = shortCVDocument.getElementsByTagName("shortCV");
@@ -73,7 +72,7 @@ public class DOMProcessing {
         NodeList companyInfoList = companyInfoDocument.getElementsByTagName("companyInfo");
 
         String ssn = "not set";
-        
+
         // Personal Info Creation
         for (int i = 0; i < shortCVList.getLength(); i++) {
             Element personalInfoElement = xmlDoc.createElement("personalInfo");
@@ -96,8 +95,7 @@ public class DOMProcessing {
             personalLetterElement.appendChild(xmlDoc.createTextNode(personalLetter));
             personalInfoElement.appendChild(personalLetterElement);
         }
-        
-        
+
         // Study Record Creation
         for (int i = 0; i < transcriptList.getLength(); i++) {
             Element studyRecordElement = xmlDoc.createElement("studyRecord");
@@ -120,20 +118,23 @@ public class DOMProcessing {
             yearElement.appendChild(xmlDoc.createTextNode(year));
             studyRecordElement.appendChild(yearElement);
 
-            // Calculate the GPA
-            NodeList courseList = transcriptElement.getElementsByTagName("course");
-            float gpa = 0;
-            for (int j = 0; j < courseList.getLength(); j++) {
-                Element courseElement = (Element) courseList.item(j);
+            /*
+             // Calculate the GPA
+             NodeList courseList = transcriptElement.getElementsByTagName("course");
+             float gpa = 0;
+             for (int j = 0; j < courseList.getLength(); j++) {
+             Element courseElement = (Element) courseList.item(j);
 
-                gpa += Integer.valueOf(courseElement.getElementsByTagName("grade").item(0).getTextContent());
-            }
+             gpa += Integer.valueOf(courseElement.getElementsByTagName("grade").item(0).getTextContent());
+             }
+            
 
-            float gpaAverage = gpa / courseList.getLength();
+             float gpaAverage = gpa / courseList.getLength();
 
-            Element gpaElement = xmlDoc.createElement("GPA");
-            gpaElement.appendChild(xmlDoc.createTextNode(String.valueOf(gpaAverage)));
-            studyRecordElement.appendChild(gpaElement);
+             Element gpaElement = xmlDoc.createElement("GPA");
+             gpaElement.appendChild(xmlDoc.createTextNode(String.valueOf(gpaAverage)));
+             studyRecordElement.appendChild(gpaElement);
+             */
         }
 
         // Employment Record Creation
@@ -148,20 +149,19 @@ public class DOMProcessing {
         // USes SAX and JAXB here
         SAXProcessing saxProcessor = new SAXProcessing();
         List<Company> companies = saxProcessor.getCompanyInfo(ssn);
-        
-        
+
         for (int j = 0; j < employmentList.getLength(); j++) {
             Element employmentElement = (Element) employmentList.item(j);
-            
+
             Element employElement = xmlDoc.createElement("employment");
             employmentRecordElement.appendChild(employElement);
-            
+
             String orgNo = employmentElement.getElementsByTagName("orgNo").item(0).getTextContent();
             String from = employmentElement.getElementsByTagName("from").item(0).getTextContent();
             String to = employmentElement.getElementsByTagName("to").item(0).getTextContent();
 
             Company company = getCompanyByOrgNo(orgNo, companies);
-            
+
             Element orgNoElement = xmlDoc.createElement("companyId");
             orgNoElement.appendChild(xmlDoc.createTextNode(orgNo));
             employElement.appendChild(orgNoElement);
@@ -183,23 +183,50 @@ public class DOMProcessing {
             employElement.appendChild(toElement);
         }
 
-        
+        // Generates temporary course data
+        // Study Record Creation
+        for (int i = 0; i < transcriptList.getLength(); i++) {
+            Element tempCoursesElement = xmlDoc.createElement("tempCourses");
+            rootElement.appendChild(tempCoursesElement);
+
+            Element transcriptElement = (Element) transcriptList.item(i);
+
+            NodeList courseList = transcriptElement.getElementsByTagName("course");
+
+            for (int j = 0; j < courseList.getLength(); j++) {
+                Element courseElement = (Element) courseList.item(j);
+
+                Element tempCourseElement = xmlDoc.createElement("tempCourse");
+                
+                String id = courseElement.getElementsByTagName("ID").item(0).getTextContent();
+                String name = courseElement.getElementsByTagName("name").item(0).getTextContent();
+                String grade = courseElement.getElementsByTagName("grade").item(0).getTextContent();
+
+                tempCourseElement.setAttribute("id", id);
+                tempCourseElement.setAttribute("name", name);
+                tempCourseElement.setAttribute("grade", grade);
+                
+                tempCoursesElement.appendChild(tempCourseElement);
+            }
+
+        }
+
         // write the content into xml file
         //get Transformer Factory
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         //get transformer to fill XML xmlDoc file
         Transformer transformer = null;
-       
+
         try {
-            
+
             transformer = transformerFactory.newTransformer();
             //generate DOM tree source from the xmlDoc document
             DOMSource source = new DOMSource(xmlDoc);
             //get stream to fill the xmlDoc file
-            StreamResult result = new StreamResult(new File("output.xml"));
+            StreamResult result = new StreamResult(new File("/Users/AMore/Desktop/output.xml"));
             //fill the XML xmlDoc file using the stream with the DOM tree
             transformer.transform(source, result);
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -214,14 +241,15 @@ public class DOMProcessing {
         }
         return doc;
     }
-    
+
     private Company getCompanyByOrgNo(String orgNo, List<Company> companies) {
         for (Company c : companies) {
-            if (c.getOrgNo().equals(orgNo))
+            if (c.getOrgNo().equals(orgNo)) {
                 return c;
+            }
         }
-        
+
         return null;
     }
-    
+
 }
