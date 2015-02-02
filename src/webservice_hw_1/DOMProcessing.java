@@ -60,10 +60,10 @@ public class DOMProcessing {
         xmlDoc.appendChild(rootElement);
 
         // Parse Corresponding xml files
-        Document shortCVDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/ShortCV.xml");
-        Document transcriptDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/Transcript.xml");
-        Document employmentRecDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents//EmploymentRecord.xml");
-        Document companyInfoDocument = parseXMLFile("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/CompanyInfo.xml");
+        Document shortCVDocument = parseXMLFile("xml_documents/ShortCV.xml");
+        Document transcriptDocument = parseXMLFile("xml_documents/Transcript.xml");
+        Document employmentRecDocument = parseXMLFile("xml_documents//EmploymentRecord.xml");
+        Document companyInfoDocument = parseXMLFile("xml_documents/CompanyInfo.xml");
 
         //Get all nodes for corresponding xml files
         NodeList shortCVList = shortCVDocument.getElementsByTagName("shortCV");
@@ -223,7 +223,7 @@ public class DOMProcessing {
             //generate DOM tree source from the xmlDoc document
             DOMSource source = new DOMSource(xmlDoc);
             //get stream to fill the xmlDoc file
-            StreamResult result = new StreamResult(new File("/Users/AMore/Desktop/output.xml"));
+            StreamResult result = new StreamResult(new File("output.xml"));
             //fill the XML xmlDoc file using the stream with the DOM tree
             transformer.transform(source, result);
 

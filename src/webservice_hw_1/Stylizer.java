@@ -31,8 +31,8 @@ public class Stylizer {
         try {
             DocumentBuilderFactory documentBuilderFactory = 
                 DocumentBuilderFactory.newInstance();
-            File xmlFile = new File("/Users/AMore/Desktop/output.xml");
-            File styleFile = new File("/Users/AMore/NetBeansProjects/WebService_hw_1/src/style/ApplicantProfile.xsl");
+            File xmlFile = new File("output.xml");
+            File styleFile = new File("style/ApplicantProfile.xsl");
             
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             Document document = documentBuilder.parse(xmlFile);

@@ -48,7 +48,7 @@ public class DOMCompanyParser {
 
         // Parse Corresponding xml files
         Document companyInfoDocument = parseXMLFile(
-            "/Users/johanand/NetBeansProjects/ID2208/src/xml_documents/CompanyInfo.xml");
+            "xml_documents/CompanyInfo.xml");
 
         //Get all nodes for corresponding xml files
         NodeList companyInfoList = companyInfoDocument.getElementsByTagName("companyInfo");

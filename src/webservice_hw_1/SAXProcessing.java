@@ -82,13 +82,13 @@ public class SAXProcessing {
 
             };
 
-            saxParser.parse(new File("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/EmploymentRecord.xml"), handler);
+            saxParser.parse(new File("xml_documents/EmploymentRecord.xml"), handler);
 
             // The dom parser analyzes  the employment office to return all the codes of the 
             //companies where the guy has worked
             DOMCompanyParser domCompanyParser = new DOMCompanyParser();
 
-            JAXBProcessing jaxbProcessing = new JAXBProcessing("/Users/AMore/NetBeansProjects/WebService_hw_1/src/xml_documents/companyInfo.xml");
+            JAXBProcessing jaxbProcessing = new JAXBProcessing("xml_documents/companyInfo.xml");
         
             List<Company> companies = jaxbProcessing.filter(orgNoList);
             
