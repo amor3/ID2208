@@ -20,7 +20,7 @@ public class WebService_hw_1 {
     public static void main(String[] args) throws JAXBException {
         DOMProcessing domProcessor = new DOMProcessing();
         domProcessor.process();
-        Stylizer.style("styled_output.html");
+        Stylizer.style("/Users/AMore/Desktop/styled_output2.html");
     }
     
 }

@@ -22,7 +22,6 @@
                             <xs:element type="xs:string" name="universityName"/>
                             <xs:element type="xs:string" name="degree"/>
                             <xs:element type="xs:short" name="year"/>
-                            <xs:element type="xs:byte" name="GPA"/>
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
@@ -43,6 +42,26 @@
                         </xs:sequence>
                     </xs:complexType>
                 </xs:element>
+                
+                <xs:element name="tempCourses">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="tempCourse" maxOccurs="unbounded" minOccurs="0">
+                                <xs:complexType>
+                                    <xs:simpleContent>
+                                        <xs:extension base="xs:string">
+                                            <xs:attribute type="xs:string" name="id" use="optional" />
+                                            <xs:attribute type="xs:string" name="name" use="optional" />
+                                            <xs:attribute type="xs:byte" name="grade" use="optional" />
+                                        </xs:extension> 
+                                    </xs:simpleContent>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                
+                
             </xs:sequence>
         </xs:complexType>
     </xs:element>
